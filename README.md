@@ -53,19 +53,40 @@ Cliente Python (consulta inventario y genera solicitudes a proveedor)
 
 polimarket/
 │
-├── bodega/                # Módulo de productos e inventario
-├── ventas/                # Clientes, vendedores, órdenes
-├── rrhh/                  # Empleados y autorización
-├── proveedores/           # Proveedores y empresas
-├── entregas/              # Registro de entregas
-├── utils/                 # (opcional) clases de apoyo
+├── auth/                           # 🔐 Autenticación y Autorización
+│   ├── AuthService.java            # Lógica de login, privilegios, roles y usuarios
+│   ├── Privilegio.java             # Representa una acción permitida (como registrarOrden)
+│   ├── Rol.java                    # Grupo de privilegios (ej. Vendedor, RRHH)
+│   └── Usuario.java                # Usuario con correo, clave, estado y roles
+│
+├── bodega/                         # 📦 Inventario de productos
+│   ├── Producto.java               # Producto con id, nombre, cantidad
+│   ├── BodegaService.java          # Registro, listado, stock y solicitudes de producto
+│   └── SolicitudProveedor.java     # Solicitud generada cuando hay bajo stock
+│
+├── ventas/                         # 💰 Ventas a clientes
+│   ├── Cliente.java                # Cliente con datos básicos
+│   ├── Vendedor.java               # Vendedor (autorizado o no)
+│   ├── OrdenVenta.java             # Orden con cliente, vendedor, producto, cantidad y estado
+│   └── VentasService.java          # Registro de ventas, clientes y control de órdenes
+│
+├── rrhh/                           # 🧑‍💼 Recursos Humanos
+│   ├── Empleado.java               # Empleado que puede autorizar vendedores
+│   ├── AutorizacionVendedor.java   # Registro de una autorización (fecha, vendedor, empleado)
+│   └── RRHHService.java            # Lógica de autorización de vendedores
+│
+├── entregas/                       # 🚚 Entregas de productos
+│   ├── Entrega.java                # Representa una entrega física
+│   └── EntregaService.java         # Registra entregas a partir de órdenes
+│
+├── proveedores/                    # 🏭 Proveedores externos
+│   ├── Empresa.java                # Empresa proveedora
+│   ├── Proveedor.java              # Relación empresa-producto-cantidad
+│   └── ProveedorService.java       # Registra productos solicitados a empresas
 │
 ├── main/
-│   ├── PoliMarketApp.java        # Programa principal
-│   └── ClienteJavaConsola.java   # Cliente consola en Java
-│
-├── cliente_api.py         # Cliente externo en Python
-└── README.md              # Documentación del proyecto
+│   └── PoliMarketApp.java          # 🧠 Clase principal que ejecuta todo el sistema
+
 
 ---
 
